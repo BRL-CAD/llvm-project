@@ -84,8 +84,8 @@ attributes #0 = { "frame-pointer"="all" }
 
 ;; Ensures that tied in and out gets allocated properly.
 ; CHECK-LABEL: test_i64_inout:
-; CHECK: mov %g0, %i2
 ; CHECK: mov 5, %i3
+; CHECK: mov %g0, %i2
 ; CHECK: xor %i2, %g0, %i2
 ; CHECK: mov %i2, %i0
 ; CHECK: ret
@@ -142,4 +142,13 @@ entry:
   %0 = call float asm sideeffect "fadds $1, $2, $0", "=f,f,e"(i32 0, i32 0)
   %1 = call double asm sideeffect "faddd $1, $2, $0", "=f,f,e"(i64 0, i64 0)
   ret void
+}
+
+; CHECK-label:test_twinword
+; CHECK: rd  %asr5, %i1
+; CHECK: srlx %i1, 32, %i0
+
+define i64 @test_twinword(){
+  %1 = tail call i64 asm sideeffect "rd %asr5, ${0:L} \0A\09 srlx ${0:L}, 32, ${0:H}", "={i0}"()
+  ret i64 %1
 }
