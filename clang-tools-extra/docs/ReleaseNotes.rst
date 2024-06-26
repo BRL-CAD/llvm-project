@@ -8,6 +8,13 @@ Extra Clang Tools |release| |ReleaseNotesTitle|
 
 Written by the `LLVM Team <https://llvm.org/>`_
 
+.. only:: PreRelease
+
+  .. warning::
+     These are in-progress notes for the upcoming Extra Clang Tools |version| release.
+     Release notes for previous releases can be found on
+     `the Download Page <https://releases.llvm.org/download.html>`_.
+
 Introduction
 ============
 
@@ -52,8 +59,8 @@ Inlay hints
     * Parameter hints are now shown for calls to a class's ``operator()``
     * No longer show bogus parameter hints for some builtins like ``__builtin_dump_struct``
 
-- Semantic highlighting works for tokens that span multiple lines.
-- Mutable reference parameters in function calls receive ``usedAsMutableReference`` modifier.
+Compile flags
+^^^^^^^^^^^^^
 
 - System include extractor (``--query-driver``) improvements
     * The directory containing builtin headers is now excluded from extracted system includes

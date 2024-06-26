@@ -79,15 +79,6 @@ struct _IterOps<_ClassicAlgPolicy> {
   template <class _Iter>
   using __difference_type = typename iterator_traits<_Iter>::difference_type;
 
-  template <class _Iter>
-  using __value_type = typename iterator_traits<_Iter>::value_type;
-
-  template <class _Iter>
-  using __iterator_category = typename iterator_traits<_Iter>::iterator_category;
-
-  template <class _Iter>
-  using __difference_type = typename iterator_traits<_Iter>::difference_type;
-
   // advance
   template <class _Iter, class _Distance>
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 static void advance(_Iter& __iter, _Distance __count) {

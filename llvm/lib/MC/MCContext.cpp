@@ -896,12 +896,6 @@ void MCContext::remapDebugPath(SmallVectorImpl<char> &Path) {
       break;
 }
 
-void MCContext::remapDebugPath(SmallVectorImpl<char> &Path) {
-  for (const auto &V : DebugPrefixMap)
-    if (llvm::sys::path::replace_path_prefix(Path, V.first, V.second))
-      break;
-}
-
 void MCContext::RemapDebugPaths() {
   const auto &DebugPrefixMap = this->DebugPrefixMap;
   if (DebugPrefixMap.empty())

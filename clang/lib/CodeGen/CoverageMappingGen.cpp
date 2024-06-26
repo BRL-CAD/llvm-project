@@ -1878,16 +1878,14 @@ struct CounterCoverageMappingBuilder
 
     // Extend into the condition before we propagate through it below - this is
     // needed to handle macros that generate the "if" but not the condition.
-    if (!S->isConsteval())
-      extendRegion(S->getCond());
+    extendRegion(S->getCond());
 
     Counter ParentCount = getRegion().getCounter();
     Counter ThenCount = getRegionCounter(S);
 
-    if (!S->isConsteval()) {
-      // Emitting a counter for the condition makes it easier to interpret the
-      // counter for the body when looking at the coverage.
-      propagateCounts(ParentCount, S->getCond());
+    // Emitting a counter for the condition makes it easier to interpret the
+    // counter for the body when looking at the coverage.
+    propagateCounts(ParentCount, S->getCond());
 
     // The 'then' count applies to the area immediately after the condition.
     std::optional<SourceRange> Gap =
@@ -1920,11 +1918,9 @@ struct CounterCoverageMappingBuilder
       GapRegionCounter = OutCount;
     }
 
-    if (!S->isConsteval()) {
-      // Create Branch Region around condition.
-      createBranchRegion(S->getCond(), ThenCount,
-                         subtractCounters(ParentCount, ThenCount));
-    }
+    // Create Branch Region around condition.
+    createBranchRegion(S->getCond(), ThenCount,
+                       subtractCounters(ParentCount, ThenCount));
   }
 
   void VisitCXXTryStmt(const CXXTryStmt *S) {

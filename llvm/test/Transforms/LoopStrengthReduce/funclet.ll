@@ -15,18 +15,15 @@ define void @f() personality ptr @_except_handler3 {
 ; CHECK-NEXT:  entry:
 ; CHECK-NEXT:    br label [[THROW:%.*]]
 ; CHECK:       throw:
-; CHECK-NEXT:    [[TMP96:%.*]] = getelementptr inbounds i8, i8* undef, i32 1
 ; CHECK-NEXT:    invoke void @reserve()
 ; CHECK-NEXT:    to label [[THROW]] unwind label [[PAD:%.*]]
 ; CHECK:       pad:
-; CHECK-NEXT:    [[PHI2:%.*]] = phi i8* [ [[TMP96]], [[THROW]] ]
 ; CHECK-NEXT:    [[CS:%.*]] = catchswitch within none [label %unreachable] unwind label [[BLAH2:%.*]]
 ; CHECK:       unreachable:
 ; CHECK-NEXT:    [[TMP0:%.*]] = catchpad within [[CS]] []
 ; CHECK-NEXT:    unreachable
 ; CHECK:       blah2:
 ; CHECK-NEXT:    [[CLEANUPPADI4_I_I_I:%.*]] = cleanuppad within none []
-; CHECK-NEXT:    [[SCEVGEP:%.*]] = getelementptr i8, i8* [[PHI2]], i32 -1
 ; CHECK-NEXT:    br label [[LOOP_BODY:%.*]]
 ; CHECK:       loop_body:
 ; CHECK-NEXT:    [[LSR_IV:%.*]] = phi i32 [ [[LSR_IV_NEXT:%.*]], [[ITER:%.*]] ], [ 0, [[BLAH2]] ]
@@ -77,18 +74,15 @@ define void @g() personality ptr @_except_handler3 {
 ; CHECK-NEXT:  entry:
 ; CHECK-NEXT:    br label [[THROW:%.*]]
 ; CHECK:       throw:
-; CHECK-NEXT:    [[TMP96:%.*]] = getelementptr inbounds i8, i8* undef, i32 1
 ; CHECK-NEXT:    invoke void @reserve()
 ; CHECK-NEXT:    to label [[THROW]] unwind label [[PAD:%.*]]
 ; CHECK:       pad:
-; CHECK-NEXT:    [[PHI2:%.*]] = phi i8* [ [[TMP96]], [[THROW]] ]
 ; CHECK-NEXT:    [[CS:%.*]] = catchswitch within none [label [[UNREACHABLE:%.*]], label %blah] unwind to caller
 ; CHECK:       unreachable:
 ; CHECK-NEXT:    [[TMP0:%.*]] = catchpad within [[CS]] []
 ; CHECK-NEXT:    unreachable
 ; CHECK:       blah:
 ; CHECK-NEXT:    [[CATCHPAD:%.*]] = catchpad within [[CS]] []
-; CHECK-NEXT:    [[SCEVGEP:%.*]] = getelementptr i8, i8* [[PHI2]], i32 -1
 ; CHECK-NEXT:    br label [[LOOP_BODY:%.*]]
 ; CHECK:       unwind_out:
 ; CHECK-NEXT:    catchret from [[CATCHPAD]] to label [[LEAVE:%.*]]
@@ -144,7 +138,6 @@ define void @h() personality ptr @_except_handler3 {
 ; CHECK-NEXT:  entry:
 ; CHECK-NEXT:    br label [[THROW:%.*]]
 ; CHECK:       throw:
-; CHECK-NEXT:    [[TMP96:%.*]] = getelementptr inbounds i8, i8* undef, i32 1
 ; CHECK-NEXT:    invoke void @reserve()
 ; CHECK-NEXT:    to label [[THROW]] unwind label [[PAD:%.*]]
 ; CHECK:       pad:
@@ -153,9 +146,7 @@ define void @h() personality ptr @_except_handler3 {
 ; CHECK-NEXT:    [[TMP0:%.*]] = catchpad within [[CS]] []
 ; CHECK-NEXT:    unreachable
 ; CHECK:       blug:
-; CHECK-NEXT:    [[PHI2:%.*]] = phi i8* [ [[TMP96]], [[PAD]] ]
 ; CHECK-NEXT:    [[CATCHPAD:%.*]] = catchpad within [[CS]] []
-; CHECK-NEXT:    [[SCEVGEP:%.*]] = getelementptr i8, i8* [[PHI2]], i32 -1
 ; CHECK-NEXT:    br label [[LOOP_BODY:%.*]]
 ; CHECK:       unwind_out:
 ; CHECK-NEXT:    catchret from [[CATCHPAD]] to label [[LEAVE:%.*]]
@@ -211,11 +202,9 @@ define void @i() personality ptr @_except_handler3 {
 ; CHECK-NEXT:  entry:
 ; CHECK-NEXT:    br label [[THROW:%.*]]
 ; CHECK:       throw:
-; CHECK-NEXT:    [[TMP96:%.*]] = getelementptr inbounds i8, i8* undef, i32 1
 ; CHECK-NEXT:    invoke void @reserve()
 ; CHECK-NEXT:    to label [[THROW]] unwind label [[CATCHPAD:%.*]]
 ; CHECK:       catchpad:
-; CHECK-NEXT:    [[PHI2:%.*]] = phi i8* [ [[TMP96]], [[THROW]] ]
 ; CHECK-NEXT:    [[CS:%.*]] = catchswitch within none [label %cp_body] unwind label [[CLEANUPPAD:%.*]]
 ; CHECK:       cp_body:
 ; CHECK-NEXT:    [[TMP0:%.*]] = catchpad within [[CS]] []
@@ -224,7 +213,6 @@ define void @i() personality ptr @_except_handler3 {
 ; CHECK-NEXT:    [[TMP1:%.*]] = cleanuppad within none []
 ; CHECK-NEXT:    br label [[LOOP_HEAD]]
 ; CHECK:       loop_head:
-; CHECK-NEXT:    [[SCEVGEP:%.*]] = getelementptr i8, i8* [[PHI2]], i32 -1
 ; CHECK-NEXT:    br label [[LOOP_BODY:%.*]]
 ; CHECK:       loop_body:
 ; CHECK-NEXT:    [[LSR_IV:%.*]] = phi i32 [ [[LSR_IV_NEXT:%.*]], [[ITER:%.*]] ], [ 0, [[LOOP_HEAD]] ]

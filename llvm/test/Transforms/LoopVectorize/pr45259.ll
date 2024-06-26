@@ -22,17 +22,17 @@ define i8 @widget(ptr %arr, i8 %t9) {
 ; CHECK-NEXT:    [[MIN_ITERS_CHECK:%.*]] = icmp ult i32 [[TMP3]], 4
 ; CHECK-NEXT:    br i1 [[MIN_ITERS_CHECK]], label [[SCALAR_PH:%.*]], label [[VECTOR_SCEVCHECK:%.*]]
 ; CHECK:       vector.scevcheck:
-; CHECK-NEXT:    [[TMP3:%.*]] = add i64 [[T1_0_LCSSA1]], -1
-; CHECK-NEXT:    [[TMP4:%.*]] = sub i64 [[TMP3]], [[ARR2]]
-; CHECK-NEXT:    [[TMP5:%.*]] = trunc i64 [[TMP4]] to i8
-; CHECK-NEXT:    [[TMP6:%.*]] = add i8 1, [[TMP5]]
-; CHECK-NEXT:    [[TMP9:%.*]] = icmp slt i8 [[TMP6]], 1
-; CHECK-NEXT:    [[TMP11:%.*]] = icmp ugt i64 [[TMP4]], 255
-; CHECK-NEXT:    [[TMP12:%.*]] = or i1 [[TMP9]], [[TMP11]]
-; CHECK-NEXT:    br i1 [[TMP12]], label [[SCALAR_PH]], label [[VECTOR_PH:%.*]]
+; CHECK-NEXT:    [[TMP4:%.*]] = sub i64 -1, [[ARR1]]
+; CHECK-NEXT:    [[TMP5:%.*]] = add i64 [[TMP4]], [[T1_0_LCSSA2]]
+; CHECK-NEXT:    [[TMP6:%.*]] = trunc i64 [[TMP5]] to i8
+; CHECK-NEXT:    [[TMP7:%.*]] = add i8 1, [[TMP6]]
+; CHECK-NEXT:    [[TMP8:%.*]] = icmp slt i8 [[TMP7]], 1
+; CHECK-NEXT:    [[TMP9:%.*]] = icmp ugt i64 [[TMP5]], 255
+; CHECK-NEXT:    [[TMP10:%.*]] = or i1 [[TMP8]], [[TMP9]]
+; CHECK-NEXT:    br i1 [[TMP10]], label [[SCALAR_PH]], label [[VECTOR_PH:%.*]]
 ; CHECK:       vector.ph:
-; CHECK-NEXT:    [[N_MOD_VF:%.*]] = urem i32 [[TMP2]], 4
-; CHECK-NEXT:    [[N_VEC:%.*]] = sub i32 [[TMP2]], [[N_MOD_VF]]
+; CHECK-NEXT:    [[N_MOD_VF:%.*]] = urem i32 [[TMP3]], 4
+; CHECK-NEXT:    [[N_VEC:%.*]] = sub i32 [[TMP3]], [[N_MOD_VF]]
 ; CHECK-NEXT:    [[IND_END:%.*]] = trunc i32 [[N_VEC]] to i8
 ; CHECK-NEXT:    [[BROADCAST_SPLATINSERT:%.*]] = insertelement <4 x i8> poison, i8 [[T9:%.*]], i64 0
 ; CHECK-NEXT:    [[BROADCAST_SPLAT:%.*]] = shufflevector <4 x i8> [[BROADCAST_SPLATINSERT]], <4 x i8> poison, <4 x i32> zeroinitializer
@@ -52,7 +52,7 @@ define i8 @widget(ptr %arr, i8 %t9) {
 ; CHECK-NEXT:    [[TMP17:%.*]] = icmp eq i32 [[INDEX_NEXT]], [[N_VEC]]
 ; CHECK-NEXT:    br i1 [[TMP17]], label [[MIDDLE_BLOCK:%.*]], label [[VECTOR_BODY]], !llvm.loop [[LOOP0:![0-9]+]]
 ; CHECK:       middle.block:
-; CHECK-NEXT:    [[CMP_N:%.*]] = icmp eq i32 [[TMP2]], [[N_VEC]]
+; CHECK-NEXT:    [[CMP_N:%.*]] = icmp eq i32 [[TMP3]], [[N_VEC]]
 ; CHECK-NEXT:    br i1 [[CMP_N]], label [[FOR_EXIT:%.*]], label [[SCALAR_PH]]
 ; CHECK:       scalar.ph:
 ; CHECK-NEXT:    [[BC_RESUME_VAL:%.*]] = phi i8 [ [[IND_END]], [[MIDDLE_BLOCK]] ], [ 0, [[FOR_PREHEADER]] ], [ 0, [[VECTOR_SCEVCHECK]] ]

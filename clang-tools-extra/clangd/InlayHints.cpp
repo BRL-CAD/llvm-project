@@ -1140,23 +1140,7 @@ private:
     bool PadLeft = Prefix.consume_front(" ");
     bool PadRight = Suffix.consume_back(" ");
     Results.push_back(InlayHint{LSPPos, (Prefix + Label + Suffix).str(), Kind,
-                                PadLeft, PadRight, *LSPRange});
-  }
-
-  // Get the range of the main file that *exactly* corresponds to R.
-  llvm::Optional<Range> getHintRange(SourceRange R) {
-    const auto &SM = AST.getSourceManager();
-    auto Spelled = Tokens.spelledForExpanded(Tokens.expandedTokens(R));
-    // TokenBuffer will return null if e.g. R corresponds to only part of a
-    // macro expansion.
-    if (!Spelled || Spelled->empty())
-      return llvm::None;
-    // Hint must be within the main file, not e.g. a non-preamble include.
-    if (SM.getFileID(Spelled->front().location()) != SM.getMainFileID() ||
-        SM.getFileID(Spelled->back().location()) != SM.getMainFileID())
-      return llvm::None;
-    return Range{sourceLocToPosition(SM, Spelled->front().location()),
-                 sourceLocToPosition(SM, Spelled->back().endLocation())};
+                                PadLeft, PadRight, LSPRange});
   }
 
   // Get the range of the main file that *exactly* corresponds to R.

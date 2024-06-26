@@ -5,6 +5,13 @@ lld |release| Release Notes
 .. contents::
     :local:
 
+.. only:: PreRelease
+
+  .. warning::
+     These are in-progress notes for the upcoming LLVM |release| release.
+     Release notes for previous releases can be found on
+     `the Download Page <https://releases.llvm.org/download.html>`_.
+
 Introduction
 ============
 
@@ -18,8 +25,6 @@ Non-comprehensive list of changes in this release
 
 ELF Improvements
 ----------------
-* ``--package-metadata=`` has been added to create package metadata notes
-  (`D131439 <https://reviews.llvm.org/D131439>`_)
 
 * ``--fat-lto-objects`` option is added to support LLVM FatLTO.
   Without ``--fat-lto-objects``, LLD will link LLVM FatLTO objects using the

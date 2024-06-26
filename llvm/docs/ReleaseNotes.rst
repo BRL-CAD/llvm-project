@@ -5,6 +5,13 @@ LLVM |release| Release Notes
 .. contents::
     :local:
 
+.. only:: PreRelease
+
+  .. warning::
+     These are in-progress notes for the upcoming LLVM |version| release.
+     Release notes for previous releases can be found on
+     `the Download Page <https://releases.llvm.org/download.html>`_.
+
 
 Introduction
 ============
@@ -233,20 +240,6 @@ Changes to the Windows Target
   https://github.com/llvm/llvm-project/issues/61401 and
   https://github.com/llvm/llvm-project/issues/22079.
 
-Changes to the SystemZ Backend
-------------------------------
-
-* Support z16 processor name.
-* Machine scheduler description for z16.
-* Add support for inline assembly address operands ("p") as well as for SystemZ
-  specific address operands ("ZQ", "ZR", "ZS" and "ZT").
-* Efficient handling of small memcpy/memset operations up to 32 bytes.
-* Tuning of the inliner.
-* Fixing emission of library calls so that narrow integer arguments are sign or
-  zero extended per the SystemZ ABI.
-* Support added for libunwind.
-* Various minor improvements and bugfixes.
-
 Changes to the X86 Backend
 --------------------------
 
@@ -263,22 +256,6 @@ Changes to the X86 Backend
   relocations to the global variable.
 * The medium code model's code generation was audited to be more similar to the
   small code model where possible.
-
-During this release, ``half`` type has an ABI breaking change to provide the
-support for the ABI of ``_Float16`` type on SSE2 and above following X86 psABI.
-(`D107082 <https://reviews.llvm.org/D107082>`_)
-
-The change may affect the current use of ``half`` includes (but is not limited
-to):
-
-* Frontends generating ``half`` type in function passing and/or returning
-  arguments.
-* Downstream runtimes providing any ``half`` conversion builtins assuming the
-  old ABI.
-* Projects built with LLVM 15.0 but using early versions of compiler-rt.
-
-When you find failures with ``half`` type, check the calling conversion of the
-code and switch it to the new ABI.
 
 Changes to the OCaml bindings
 -----------------------------
@@ -454,14 +431,6 @@ Changes to LLDB
 
 * On Windows, LLDB can now read the thread names.
 
-* LLDB now supports the gnu debuglink section for reading debug information
-  from a separate file on Windows
-
-* LLDB now allows selecting the C++ ABI to use on Windows (between Itanium,
-  used for MingW, and MSVC) via the ``plugin.object-file.pe-coff.abi`` setting.
-  In Windows builds of LLDB, this defaults to the style used for LLVM's default
-  target.
-
 Changes to Sanitizers
 ---------------------
 * HWASan now defaults to detecting use-after-scope bugs.
@@ -496,14 +465,6 @@ Other Changes
   This works even if the tools have no embedded symbol information (i.e. are
   fully stripped); :doc:`llvm-symbolizer <CommandGuide/llvm-symbolizer>` can
   symbolize the markup afterwards using ``debuginfod``.
-
-* Added the unwinder, personality, and helper functions for exception handling
-  on AIX. (`D100132 <https://reviews.llvm.org/D100132>`_)
-  (`D100504 <https://reviews.llvm.org/D100504>`_)
-
-* PGO on AIX: A new implementation that requires linker support
-  (__start_SECTION/__stop_SECTION symbols) available on AIX 7.2 TL5 SP4 and
-  AIX 7.3 TL0 SP2.
 
 External Open Source Projects Using LLVM 15
 ===========================================

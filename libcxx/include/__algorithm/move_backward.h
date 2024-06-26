@@ -126,22 +126,6 @@ __move_backward(_BidirectionalIterator1 __first, _Sentinel __last, _Bidirectiona
       std::move(__first), std::move(__last), std::move(__result));
 }
 
-template <class _AlgPolicy, class _BidirectionalIterator1, class _BidirectionalIterator2>
-inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX17
-_BidirectionalIterator2
-__move_backward(_BidirectionalIterator1 __first, _BidirectionalIterator1 __last,
-                _BidirectionalIterator2 __result)
-{
-    if (__libcpp_is_constant_evaluated()) {
-        return _VSTD::__move_backward_constexpr<_AlgPolicy>(__first, __last, __result);
-    } else {
-        return _VSTD::__rewrap_iter(__result,
-            _VSTD::__move_backward_impl<_AlgPolicy>(_VSTD::__unwrap_iter(__first),
-                                                    _VSTD::__unwrap_iter(__last),
-                                                    _VSTD::__unwrap_iter(__result)));
-    }
-}
-
 template <class _BidirectionalIterator1, class _BidirectionalIterator2>
 inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _BidirectionalIterator2
 move_backward(_BidirectionalIterator1 __first, _BidirectionalIterator1 __last, _BidirectionalIterator2 __result) {

@@ -573,8 +573,6 @@ number of literals can be specified.  For example:
   vector int vi5 = (vector int)(1, 2, 3, 4);
   float4 vf = (float4)((float2)(1.0f, 2.0f), (float2)(3.0f, 4.0f));
 
-.. _Vector Operations:
-
 Vector Operations
 -----------------
 

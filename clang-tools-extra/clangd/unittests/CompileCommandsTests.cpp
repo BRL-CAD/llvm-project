@@ -525,19 +525,6 @@ TEST(CommandMangler, RespectsOriginalSysroot) {
                 Not(HasSubstr(testPath("fake/sysroot"))));
   }
 }
-
-TEST(CommandMangler, PathsAsPositional) {
-  const auto Mangler = CommandMangler::forTests();
-  std::vector<std::string> Args = {
-      "clang",
-      "--driver-mode=cl",
-      "-I",
-      "foo",
-  };
-  // Make sure we don't crash.
-  Mangler.adjust(Args, "a.cc");
-  EXPECT_THAT(Args, Contains("foo"));
-}
 } // namespace
 } // namespace clangd
 } // namespace clang

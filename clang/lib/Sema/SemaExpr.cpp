@@ -16362,8 +16362,6 @@ ExprResult Sema::CreateBuiltinUnaryOp(SourceLocation OpLoc,
       break;
     else if (resultType->isSveVLSBuiltinType()) // SVE vectors allow + and -
       break;
-    else if (resultType->isVLSTBuiltinType()) // SVE vectors allow + and -
-      break;
     else if (getLangOpts().CPlusPlus && // C++ [expr.unary.op]p6
              Opc == UO_Plus &&
              resultType->isPointerType())

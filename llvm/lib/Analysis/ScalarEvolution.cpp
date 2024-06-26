@@ -6024,8 +6024,7 @@ const SCEV *ScalarEvolution::createNodeForPHI(PHINode *PN) {
     return S;
 
   if (Value *V = simplifyInstruction(PN, {getDataLayout(), &TLI, &DT, &AC}))
-    if (LI.replacementPreservesLCSSAForm(PN, V))
-      return getSCEV(V);
+    return getSCEV(V);
 
   if (const SCEV *S = createNodeFromSelectLikePHI(PN))
     return S;

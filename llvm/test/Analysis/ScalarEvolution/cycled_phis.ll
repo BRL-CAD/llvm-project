@@ -47,7 +47,7 @@ define void @test_02(ptr %p, ptr %q) {
 ; CHECK-NEXT:    %inner_cond = call i1 @cond()
 ; CHECK-NEXT:    --> %inner_cond U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %inner_loop: Variant, %outer_loop: Variant }
 ; CHECK-NEXT:    %inner_lcssa = phi i32 [ %inner_phi, %inner_loop ]
-; CHECK-NEXT:    --> %inner_lcssa U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %outer_loop: Variant, %inner_loop: Invariant }
+; CHECK-NEXT:    --> %inner_phi U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %outer_loop: Variant, %inner_loop: Variant }
 ; CHECK-NEXT:    %outer_cond = call i1 @cond()
 ; CHECK-NEXT:    --> %outer_cond U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %outer_loop: Variant, %inner_loop: Invariant }
 ; CHECK-NEXT:  Determining loop execution counts for: @test_02
@@ -100,7 +100,7 @@ define void @test_03(ptr %p, ptr %q) {
 ; CHECK-NEXT:    %inner_cond = call i1 @cond()
 ; CHECK-NEXT:    --> %inner_cond U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %inner_loop: Variant, %outer_loop: Variant }
 ; CHECK-NEXT:    %inner_lcssa = phi i32 [ %inner_phi_1, %inner_loop ]
-; CHECK-NEXT:    --> %inner_lcssa U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %outer_loop: Variant, %inner_loop: Invariant }
+; CHECK-NEXT:    --> %inner_phi_1 U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %outer_loop: Variant, %inner_loop: Variant }
 ; CHECK-NEXT:    %outer_cond = call i1 @cond()
 ; CHECK-NEXT:    --> %outer_cond U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %outer_loop: Variant, %inner_loop: Invariant }
 ; CHECK-NEXT:  Determining loop execution counts for: @test_03

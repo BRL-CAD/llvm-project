@@ -102,16 +102,5 @@ int main(int, char**)
     static_assert(tests());
 #endif
 
-    return true;
-}
-
-int main(int, char**)
-{
-    tests();
-
-#if TEST_STD_VER > 17
-    static_assert(tests());
-#endif
-
   return 0;
 }

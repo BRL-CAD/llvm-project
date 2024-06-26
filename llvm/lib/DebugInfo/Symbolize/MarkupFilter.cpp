@@ -594,16 +594,6 @@ std::optional<uint64_t> MarkupFilter::parseFrameNumber(StringRef Str) const {
   return ID;
 }
 
-// Parse a frame number (%i in the spec).
-Optional<uint64_t> MarkupFilter::parseFrameNumber(StringRef Str) const {
-  uint64_t ID;
-  if (Str.getAsInteger(10, ID)) {
-    reportTypeError(Str, "frame number");
-    return None;
-  }
-  return ID;
-}
-
 // Parse a build ID (%x in the spec).
 object::BuildID MarkupFilter::parseBuildID(StringRef Str) const {
   object::BuildID BID = llvm::object::parseBuildID(Str);

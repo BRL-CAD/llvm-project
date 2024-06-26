@@ -163,5 +163,5 @@ int main(int, char**) {
   }
 #endif
 
-    return 0;
+  return 0;
 }

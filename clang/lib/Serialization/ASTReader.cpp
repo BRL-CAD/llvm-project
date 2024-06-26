@@ -750,16 +750,6 @@ static bool checkPreprocessorOptions(
       }
     }
   }
-  if (Validation == OptionValidateStrictMatches) {
-    // If strict matches are requested, don't tolerate any extra defines in
-    // the AST file that are missing on the command line.
-    for (const auto &MacroName : ASTFileMacros.keys()) {
-      if (Diags) {
-        Diags->Report(diag::err_pch_macro_def_undef) << MacroName << false;
-      }
-      return true;
-    }
-  }
 
   // Check whether we're using predefines.
   if (PPOpts.UsePredefines != ExistingPPOpts.UsePredefines &&
